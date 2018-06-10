@@ -39,8 +39,8 @@ window.renderStatistics = function (ctx, names, times) {
 	}());
 
 	function getMaxTime() {
-		var max = times.length;
-		for (var i = times.length-1; i >= 0; i--) {
+		var max = times[times.length - 1];
+		for (var i = times.length - 2; i >= 0; i--) {
 			if (times[i] > max) {
 				max = times[i];
 			}
@@ -64,7 +64,7 @@ window.renderStatistics = function (ctx, names, times) {
 				ctx.fillRect (CoordX, 250, 40, - columnHeight);
 				ctx.fillStyle = 'black';
 				ctx.fillText(names[i], CoordX, 265);
-				ctx.fillText(+times[i], CoordX, -columnHeight + 240);
+				ctx.fillText(+times[i], CoordX, - columnHeight + 240);
 				CoordX += betweenColumn;
 
 			} else { console.log(anotherColor);
@@ -72,7 +72,7 @@ window.renderStatistics = function (ctx, names, times) {
 				ctx.fillRect (CoordX, 250, 40, - columnHeight);
 				ctx.fillStyle = 'black';
 				ctx.fillText(names[i], CoordX, 265);
-				ctx.fillText(+Math.round(times[i]), CoordX, -columnHeight + 240);
+				ctx.fillText(+Math.round(times[i]), CoordX, - columnHeight + 240);
 				CoordX += betweenColumn;
 			}
 		};
