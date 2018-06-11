@@ -1,46 +1,33 @@
+"use strict";
 window.renderStatistics = function (ctx, names, times) {
 
-	(function() {
-		ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+	var START_X = 100;
+	var START_Y = 10;
+	var COORD_X = 150;
+	var COORD_Y = 250;
+	var SHIFT_COLUMN = 90;
+	var COLUMN_WIDTH = 40;
 
+
+	var drawFigure = function (shiftX, shiftY, color){
+		ctx.fillStyle = color;
 		ctx.beginPath();
-		ctx.moveTo(110, 20);
-		ctx.lineTo(320, 10);
-		ctx.lineTo(530, 20);
-		ctx.lineTo(520, 155);
-		ctx.lineTo(530, 290);
-		ctx.lineTo(310, 280);
-		ctx.lineTo(110, 290);
-		ctx.lineTo(120, 155);
-		ctx.lineTo(110, 20);
+		ctx.moveTo(START_X + shiftX, START_Y + shiftY);
+		ctx.lineTo(START_X + shiftX + 210, START_Y + shiftY + 0);
+		ctx.lineTo(START_X + shiftX + 420, START_Y + shiftY + 10);
+		ctx.lineTo(START_X + shiftX + 410, START_Y + shiftY + 145);
+		ctx.lineTo(START_X + shiftX + 420, START_Y + shiftY + 280);
+		ctx.lineTo(START_X + shiftX + 200, START_Y + shiftY + 270);
+		ctx.lineTo(START_X + shiftX + 0,   START_Y + shiftY + 280);
+		ctx.lineTo(START_X + shiftX + 10,  START_Y + shiftY + 145);
+		ctx.lineTo(START_X + shiftX + 0,   START_Y + shiftY + 10);
 		ctx.fill();
 		ctx.closePath();
+	};
 
-		ctx.fillStyle = 'white';
-
-		ctx.beginPath();
-		ctx.moveTo(100, 10);
-		ctx.lineTo(310, 0);
-		ctx.lineTo(520, 10);
-		ctx.lineTo(510, 145);
-		ctx.lineTo(520, 280);
-		ctx.lineTo(300, 270);
-		ctx.lineTo(100, 280);
-		ctx.lineTo(110, 145);
-		ctx.lineTo(100, 10);
-		ctx.fill();
-		ctx.closePath();
-
-		ctx.fillStyle = 'black';
-
-		ctx.font = '16px PT Mono';
-		ctx.fillText('Ура вы победили!', 240, 30);
-		ctx.fillText('Список результатов:', 230, 60);
-	}());
-
-	function getMaxTime() {
-		var max = times[times.length - 1];
-		for (var i = times.length - 2; i >= 0; i--) {
+	var getMaxTime = function () {
+		var max = times[0];
+		for (var i = 1; i < times.length ; i++) {
 			if (times[i] > max) {
 				max = times[i];
 			}
@@ -48,35 +35,39 @@ window.renderStatistics = function (ctx, names, times) {
 		return max;
 	};
 
-	(function drowGistogramm() {
 
+	var drawGistogramm = function () {
 		var maxColumn = getMaxTime();
-		var betweenColumn = 90;
-		var CoordX = 150;
-
 		for (var i = 0; i < times.length; i++) {
-			    var random = Math.round( Math.random() * 10 ) / 10;
-			    var anotherColor ="'rgba(0, 0, 255, " + random + ")'";
-			    var columnHeight = times[i] / maxColumn * 150;
+			var random = Math.round( Math.random() * 10 ) / 10;
+			var anotherColor ="'rgba(255, 0, 0, " + random + ")'";
+			var columnHeight = times[i] / maxColumn * 150;
 
+			var drawColumns = function(color) {
+				ctx.fillStyle = color;
+				ctx.fillRect (COORD_X, COORD_Y, COLUMN_WIDTH, - columnHeight);
+				ctx.fillStyle = 'black';
+				ctx.fillText(names[i], COORD_X, COORD_Y + 15);
+				ctx.fillText(+Math.round(times[i]), COORD_X, - columnHeight + 240);
+				COORD_X += SHIFT_COLUMN;
+			};
 			if (names[i] == 'Вы') {
-				ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-				ctx.fillRect (CoordX, 250, 40, - columnHeight);
-				ctx.fillStyle = 'black';
-				ctx.fillText(names[i], CoordX, 265);
-				ctx.fillText(+times[i], CoordX, - columnHeight + 240);
-				CoordX += betweenColumn;
-
-			} else { console.log(anotherColor);
-				ctx.fillStyle = anotherColor;
-				ctx.fillRect (CoordX, 250, 40, - columnHeight);
-				ctx.fillStyle = 'black';
-				ctx.fillText(names[i], CoordX, 265);
-				ctx.fillText(+Math.round(times[i]), CoordX, - columnHeight + 240);
-				CoordX += betweenColumn;
+				drawColumns('rgba(255, 0, 0, 1)');
+			} else {
+				drawColumns(anotherColor);
 			}
 		};
-	}());
+	};
+
+	drawFigure(10,10,'rgba(0, 0, 0, 0.7)');
+	drawFigure(0,0,'rgba(255, 255, 255, 1)');
+
+	ctx.fillStyle = 'black';
+	ctx.font = '16px PT Mono';
+	ctx.fillText('Ура вы победили!', 240, 30);
+	ctx.fillText('Список результатов:', 230, 60);
+
+	drawGistogramm();
 
 };
 
