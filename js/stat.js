@@ -9,7 +9,7 @@ var COLUMN_WIDTH = 40;
 
 var drawFigure = function (shiftX, shiftY, color, ctx) {
   ctx.fillStyle = color;
-  ctx.beginPath ();
+  ctx.beginPath();
   ctx.moveTo(START_X + shiftX, START_Y + shiftY);
   ctx.lineTo(START_X + shiftX + 210, START_Y + shiftY - 10);
   ctx.lineTo(START_X + shiftX + 420, START_Y + shiftY + 0);
@@ -33,27 +33,27 @@ var getMaxTime = function (times) {
   return max;
 };
 
-var drawColumns = function (color, columnHeight, ctx, names, times, i, CoordX ) {
+var drawColumns = function (color, columnHeight, ctx, names, times, i, CoordX) {
   ctx.fillStyle = color;
-  ctx.fillRect (CoordX, COORD_Y, COLUMN_WIDTH, - columnHeight);
+  ctx.fillRect(CoordX, COORD_Y, COLUMN_WIDTH, -columnHeight);
   ctx.fillStyle = 'black';
   ctx.fillText(names[i], CoordX, COORD_Y + 15);
-  ctx.fillText(+Math.round(times[i]), CoordX, - columnHeight + 240);
+  ctx.fillText(+Math.round(times[i]), CoordX, -columnHeight + 240);
 };
 
 var drawGistogramm = function (ctx, names, times) {
-  var maxColumn = getMaxTime (times);var CoordX = COORD_X;
+  var maxColumn = getMaxTime(times);var CoordX = COORD_X;
   for (var i = 0; i < times.length; i++) {
-    var random = Math.round ( Math.random () * 10 ) / 10;
+    var random = Math.round( Math.random() * 10 ) / 10;
     var anotherColor = '\'rgba(0, 0, 255, ' + random + ')\'';
     var columnHeight = times[i] / maxColumn * 150;
-    if (names[i] == 'Вы') {
+    if (names[i] === 'Вы') {
       drawColumns('rgba(255, 0, 0, 1)', columnHeight, ctx, names, times, i, CoordX);
     } else {
-      drawColumns(anotherColor, columnHeight, ctx, names, times, i,CoordX);
+      drawColumns(anotherColor, columnHeight, ctx, names, times, i, CoordX);
     }
     CoordX += SHIFT_COLUMN;
-  };
+  }
 };
 
 window.renderStatistics = function (ctx, names, times) {
