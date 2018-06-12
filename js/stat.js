@@ -25,7 +25,7 @@ var drawFigure = function (shiftX, shiftY, color, ctx) {
 
 var getMaxTime = function (times) {
   var max = times[0];
-  for (var i = 1; i < times.length ; i++) {
+  for (var i = 1;i < times.length ;i++) {
     if (times[i] > max) {
       max = times[i];
     }
@@ -42,9 +42,9 @@ var drawColumns = function (color, columnHeight, ctx, names, times, i, CoordX) {
 };
 
 var drawGistogramm = function (ctx, names, times) {
-  var maxColumn = getMaxTime(times);var CoordX = COORD_X;
-  for (var i = 0; i < times.length; i++) {
-    var random = Math.round( Math.random() * 10 ) / 10;
+  var maxColumn = getMaxTime(times); var CoordX = COORD_X;
+  for (var i = 0;i < times.length;i++) {
+    var random = Math.round(Math.random() * 10) / 10;
     var anotherColor = '\'rgba(0, 0, 255, ' + random + ')\'';
     var columnHeight = times[i] / maxColumn * 150;
     if (names[i] === 'Вы') {
