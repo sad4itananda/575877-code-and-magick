@@ -10,7 +10,7 @@ var getRandomInt = function (minIn, maxIn) {
 };
 
 var getRandomParametr = function (array) {
- return array[getRandomInt(0, array.length -1)];
+  return array[getRandomInt(0, array.length - 1)];
 };
 
 var getArrayOfRandomWizards = function () {
