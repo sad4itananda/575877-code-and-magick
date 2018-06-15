@@ -17,12 +17,12 @@ var getRandomInt = function (minIn, maxIn) {
 };
 
 var getRandomArrayElement = function (array) {
-  return array[getRandomInt(0, array.length -1)];
+  return array[getRandomInt(0, array.length - 1)];
 };
 
 var getArrayOfRandomWizards = function () {
   var newArr = [];
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < WIZARDS_QUANTITY; i++) {
     newArr[i] = {};
     if (getRandomInt(0, 1)) {
       newArr[i].name = getRandomArrayElement(NAMES) + ' ' + getRandomArrayElement(SURNAMES);
