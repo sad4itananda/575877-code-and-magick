@@ -29,12 +29,12 @@ var getArrayOfRandomWizards = function () {
     if (getRandomInt(0, 1)) {
       newArr[i].name = getRandomArrayElement(NAMES) + ' ' + getRandomArrayElement(SURNAMES);
     } else {
-     newArr[i].name = getRandomArrayElement(SURNAMES) + ' ' + getRandomArrayElement(NAMES);
-   }
-   newArr[i].coatColor = getRandomArrayElement(COAT_COLORS);
-   newArr[i].eyesColor = getRandomArrayElement(EYES_COLORS);
- }
- return newArr;
+      newArr[i].name = getRandomArrayElement(SURNAMES) + ' ' + getRandomArrayElement(NAMES);
+    }
+    newArr[i].coatColor = getRandomArrayElement(COAT_COLORS);
+    newArr[i].eyesColor = getRandomArrayElement(EYES_COLORS);
+  }
+  return newArr;
 };
 
 var drawSimilarWizards = function (arrOfWizards) {
